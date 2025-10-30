@@ -1,5 +1,10 @@
 const BASE_URL = "https://v2.api.noroff.dev";
 
+function authHeader() {
+    const token = localStorage.getItem("token");
+    return token ? {authorization: `Bearer ${token}` } : {};
+}
+
 /**
  * 
  * @param {string} path - API path, f.eks. "/auth/register"
@@ -12,6 +17,7 @@ export async function api(path, options = {}) {
         method: options.method || "GET",
         headers: {
             "Content-Type": "application/json",
+            ...authHeader(),
             ...(options.headers || {})
         },
         body: options.body ? JSON.stringify(options.body) : undefined,

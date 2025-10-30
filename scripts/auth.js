@@ -42,3 +42,36 @@ function clearMessage() {
     message.textContent = "";
     message.className = "";
 }
+
+const loginForm = document.querySelector("#loginForm");
+
+if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        clearMessage();
+        setMessage("Logging in...", "info");
+
+        const email = loginForm.email.value.trim();
+        const password = loginForm.password.value;
+
+        if(!email || !password) {
+            setMessage("Fill out all the fields.", "error");
+            return;
+        }
+
+        try {
+            const result = await api("/auth/login", {
+                method: "POST",
+                body: { email, password},
+            });
+
+            localStorage.setItem("token", result?.data?.accessToken || result?.accessToken || "");
+            localStorage.setItem("profile", JSON.stringify(result?.data || result));
+
+            setMessage("Logged in! Sending you to the feed...", "success");
+            setTimeout(() => (window.location.href = "../posts/feed.html"), 4000);
+        }   catch (error) {
+            setMessage(error.message || "Login failed.", "error");
+        }
+    });
+}
