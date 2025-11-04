@@ -1,0 +1,75 @@
+import { api } from "./api.js";
+
+const message = document.querySelector("#message");
+const postsContainer = document.querySelector("#posts");
+
+if (!postsContainer) {
+    setMessage("posts container not found.", "error");
+    throw new Error("Missing #posts element");
+}
+
+// Check if we are logged in (token required), if not send to login
+const token = localStorage.getItem("token");
+if (!token) {
+    window.location.href = "../auth/login.html";
+}
+
+//Get and show posts
+initializeFeed();
+
+async function initializeFeed() {
+    setMessage("Loading posts...", "info");
+    try {
+        const result = await api("/social/posts");
+        const posts = result?.data || result;
+
+        if (!Array.isArray(posts) || posts.length === 0) {
+            setMessage("No posts to show yet.", "info");
+            return;
+        }
+
+        clearMessage();
+        renderPosts(posts);
+    }   catch (error) {
+        setMessage(error.message || "Could not load posts.", "error");
+    }
+}
+
+function renderPosts(posts) {
+    postsContainer.innerHTML = posts
+        .map((post) => {
+            const title = sanitize(post.title) || "(no title)";
+            const body = sanitize(post.body) || "";
+            return `
+                <article class="post-card">
+                    <h2>
+                    <a href="./post.html?id=${post.id}">${title}</a>
+                    </h2>
+                    <p>${body}</p>
+                </article>
+            `;
+        })
+        .join("");
+}
+
+//helps for messages
+
+function setMessage(text, type = "info") {
+    if (!message) return;
+    message.textContent = text;
+    message.className = type;
+}
+function clearMessage() {
+    if(!message) return;
+    message.textContent = "";
+    message.className = "";
+}
+
+// sanitizer avoids wierd text
+
+function sanitize(value) {
+    return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
