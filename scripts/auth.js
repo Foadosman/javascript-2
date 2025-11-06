@@ -67,6 +67,7 @@ if (loginForm) {
 
             localStorage.setItem("token", result?.data?.accessToken || result?.accessToken || "");
             localStorage.setItem("profile", JSON.stringify(result?.data || result));
+            localStorage.setItem("username", result?.data?.name || result?.name || "");
 
             setMessage("Logged in! Sending you to the feed...", "success");
             setTimeout(() => (window.location.href = "../posts/feed.html"), 4000);
