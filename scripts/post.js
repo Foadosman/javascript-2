@@ -17,7 +17,7 @@ initializePost();
 async function initializePost() {
     setMessage("Loading post...", "info");
     try {
-        const result = await api(`/social/posts/${id}`);
+        const result = await api(`/social/posts/${id}?_author=true`);
         const post = result?.data || result;
         clearMessage();
         renderPost(post);
@@ -29,7 +29,7 @@ async function initializePost() {
 function renderPost(post) {
     const title = sanitize(post.title) || "(No title)";
     const body = sanitize(post.body) || "";
-    const author = post.autor?.name || "unknown";
+    const author = post.author?.name || "unknown";
     const media = post.media?.url
         ? `<img src="${post.media.url}" alt="${post.media.alt || "Post image"}">`
         : "";
