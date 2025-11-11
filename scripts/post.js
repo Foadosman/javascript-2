@@ -29,14 +29,15 @@ async function initializePost() {
 function renderPost(post) {
     const title = sanitize(post.title) || "(No title)";
     const body = sanitize(post.body) || "";
-    const author = post.author?.name || "unknown";
+    const authorName = post.author?.name || "unknown";
+    const authorLink = `../profiles/user.html?name=${encodeURIComponent(authorName)}`;
     const media = post.media?.url
         ? `<img src="${post.media.url}" alt="${post.media.alt || "Post image"}">`
         : "";
 
     postContainer.innerHTML = `
     <h2>${title}</h2>
-    <p><strong>by:</strong> ${author}</p>
+    <p><strong>by:</strong> <a href="${authorLink}">${authorName}</a></p>
     ${media}
     <p>${body}</p>
     `;

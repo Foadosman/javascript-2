@@ -1,7 +1,7 @@
 const token = localStorage.getItem("token");
 const username = localStorage.getItem("username");
 
-const navbar = document.createElement("nav");
+const nav = document.createElement("nav");
 navbar.innerHTML = `
     <a href="../posts/feed.html">Feed</a>
     <a href="../posts/create.html">Create</a>

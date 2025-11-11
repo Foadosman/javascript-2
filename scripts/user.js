@@ -3,6 +3,8 @@ import { api } from "./api.js";
 const message = document.querySelector("#message");
 const userPosts = document.querySelector("#userPosts");
 const usernameTitle = document.querySelector("#usernameTitle");
+const currentUser = localStorage.getItem("username");
+const followBtn = document.querySelector("#followBtn");
 
 const token = localStorage.getItem("token");
 if (!token) {
@@ -21,6 +23,10 @@ if (!username) {
 usernameTitle.textContent = `${username}'s posts`;
 
 loadUserPosts();
+
+if (followBtn) {
+    initializeFollowButton();
+}
 
 async function loadUserPosts() {
     setMessage("Loading posts...", "info");
@@ -52,9 +58,23 @@ async function loadUserPosts() {
     }
 }
 
-// Follow / Unfollow
-const followBtn = document.querySelector("#followBtn");
+async function initializeFollowButton() {
+    if (currentUser && currentUser === username) {
+        followBtn.style.display = "none";
+        return;
+    }   
 
+    try {
+        const myProfile = await api(`/social/profiles/${encodeURIComponent(currentUser)}?_following=true`);
+        const me = myProfile?.data || myProfile;
+        const youFollow = Array.isArray(me.following) && me.following.some(user => user?.name === username);
+        followBtn.textContent = youFollow ? "Unfollow" : "Follow";
+    } catch (err) {
+        setMessage(err.message || "Could not load follow status.", "error");
+    }
+}
+
+// Follow / Unfollow
 if (followBtn) {
     followBtn.addEventListener("click", async () => {
         try {
