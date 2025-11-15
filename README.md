@@ -1,137 +1,107 @@
-# javascript-2
+# Place2Be – Social Media App
 
-Learning Outcomes covered
+A simple social media client built as part of the JavaScript 2 Course Assignment at Noroff.  
+Users can register, log in, create posts, edit posts, delete posts, view a feed, and see profiles and user posts.
 
-Knowledge
+## Features
 
-The Candidate...
+- Register new user
+- Log in / log out (token saved in `localStorage`)
+- View all posts (feed)
+- View a single post
+- Create a post
+- Edit own posts
+- Delete own posts
+- View own profile
+- View another user’s profile and posts
+- Follow / unfollow users
+- Search posts by title and body
+- Basic responsive layout with navbar and footer
+- Status messages for success / error / info
 
--has knowledge of the programming language JavaScript used for developing interactive and dynamic web solutions
--has knowledge of data structure manipulation techniques such as array manipulation and object destructuring
--has knowledge of writing modular code using ES6 modules
--has knowledge of processes for testing and debugging.
- 
-Skills
+## Technologies Used
 
-The Candidate...
--can explain his/her choice of techniques and tools for developing interactive and dynamic solutions with JavaScript
--can explain his/her choice of development processes for solutions using modern JavaScript concepts
--can reflect over his/her own practice for the development of interactive and dynamic solutions with JavaScript and adjust it under supervision or user feedback
--can find and refer to information and vocational material for development with JavaScript
-General Competence
+- HTML
+- CSS (`styles/main.css`)
+- JavaScript (ES modules)
+- Noroff API v2 (`https://docs.noroff.dev/docs/v2`)
 
-The Candidate...
--can plan and carry out interactive and dynamic solutions, either alone or as part of a group, and can implement standalone applications in JavaScript given small assignments
--can exchange points of view with others with a background in the trade/discipline in relation to the development of interactive and dynamic solutions
-Time Commitment
+## Project Structure
 
-1 week full-time.
+```text
+/
+├── assets/
+│   └── logo/
+│       └── place2be-logo.svg
+├── pages/
+│   ├── auth/
+│   │   ├── login.html
+│   │   └── register.html
+│   ├── posts/
+│   │   ├── feed.html
+│   │   ├── create.html
+│   │   ├── edit.html
+│   │   └── post.html
+│   └── profiles/
+│       ├── profile.html
+│       └── user.html
+├── scripts/
+│   ├── api.js
+│   ├── auth.js
+│   ├── createPost.js
+│   ├── editPost.js
+│   ├── feed.js
+│   ├── navbar.js
+│   ├── footer.js
+│   ├── post.js
+│   ├── profile.js
+│   └── user.js
+├── styles/
+│   └── main.css
+├── index.html
+└── README.md
+```
 
-Brief
-You will be building the front-end client for a social media application.
+## How to Run
 
-You will be provided with the API information at the end of this page (API)
-Features and User stories
- 
-All the following features and user stories are required to be completed for you to pass this assignment:
- 
+1. Clone or download the repository.
+2. Open the project in VS Code.
+3. Use **Live Server** (or similar) and open `pages/posts/feed.html`.
+4. Register a new user, log in, and start creating posts.
 
-Required features
+## API
 
-Register new user:	As a user, I can register a new user on the register user page.
-Login user:	As a user, I can login as a registered user on the login user page.
-Get all posts:	As a user I can view all the posts on the feed page.
-Get post:	As a user, I can view a single post when clicking on a post in the feed.
-Create post:	As a user, I can create a single post.
-Edit post:	As a user, I can edit my own post(s).
-Delete post:	As a user, I can delete my own post(s).
-Get posts of a user:	As a user, I can view all the posts of a different user.
-Follow / Unfollow user:	As a user, I can follow/unfollow other users.
-Search posts:	As a user, I can search through posts using a search bar.
-View my own profile:	As a user I can view my own profile.
- 
-Pages
-The following pages must be present in the project:
+This project uses the Noroff API v2:
 
-Login page.
-Register page.
-Posts/feed page.
-Individual post page.
-User’s own profile page. 
- 
- 
- 
-Note: You can have as many pages as you would like, however the above pages must be present in the project.
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /social/posts`
+- `POST /social/posts`
+- `PUT /social/posts/{id}`
+- `DELETE /social/posts/{id}`
+- `GET /social/profiles/{name}`
+- `GET /social/profiles/{name}/posts`
+- `PUT /social/profiles/{name}/follow`
+- `PUT /social/profiles/{name}/unfollow`
 
-Requirements
- 
-These requirements must be met for the project to pass:
+The API key and base URL are configured in `scripts/api.js`.  
+The auth token is stored in `localStorage` after login and sent automatically in requests.
 
-You must make use of ES6 modules.
-At least 3 functions must have JSDocs added to them.
-You must deploy your app to GitHub pages, Netlify or Vercel.
-Basic UI must be in place at the very least.
-You must create a README.md with details how to run your project.
-API
- 
-You can find all of Noroff’s API documentation at the following link: https://docs.noroff.dev/docs/v2
+## Known Limitations
 
-Note: Many of the end-points in this assignment are authenticated end-points. You will need to make use of the Noroff Auth end-points for registering and logging in users: https://docs.noroff.dev/docs/v2/auth/register
+- Styling is basic and focused on meeting assignment requirements.
+- Images are added via URL only (no file upload).
+- No comments or reactions (not required for solo assignment).
 
-For functionality related to the Social Media application, you will need to make use of the following end-points:
+## Deployment
 
-Posts: https://docs.noroff.dev/docs/v2/social/posts
-Profiles: https://docs.noroff.dev/docs/v2/social/profiles
-Code of conduct
- 
-Please note that you are required to follow Noroff’s code of conduct when working with the API and inappropriate content submitted to the API will lead to consequences and disciplinary action.
+Live site URL:  
+Coming...
 
-Authentication
- 
-You will need to make use of the Noroff Authentication API when working with the Noroff API:
+## Author
 
-CSS, CSS Frameworks and UI
- 
-The importance of this assignment is to demonstrate your JavaScript understanding. You are not required to create an amazing design for the project, however there must be some basic styling in place.
+`https://github.com/Foadosman`
 
-You are free to use CSS libraries such as Bootstrap and Tailwind CSS.
+## Repository
+`https://github.com/Foadosman/javascript-2`
 
-Group Work
- 
-You are allowed to work in pairs in this assignment, however you will need to state who your partner is in your submission.
-
-If you work in a pair, you will need to complete the additional user stories:
-
-Comment on post
-Reply to a comment
-React to a post
- Restrictions
- 
- 
-Strictly no front-end frameworks like React, Vue or Angular can be used.
-
-Process
- 
-Create you repository
-Clone the repository to your computer
-Use GitHub Projects to keep track of your project
-Implement the stories and features
-Commit regularly and push your work using meaningful commit messages.
-Test your work, track, and process bugs in the Issues tab.
- 
-Tips:
-
-Ensure that your code is formatted. The extension Prettier, once setup, will handle all of your formatting. Marks will be deducted if your code is not formatted correctly.
-
-Avoid having large files with many functions in them. Instead, try and create modular, reusable code.
-
-Delivery
-The assignment must be delivered on Moodle before the set deadline and include:
-
-For individual assignments
-A link to your Public GitHub repo.
-A link to your deployed production website (Netlify/ Vercel/ GitHub Pages).
-For group assignments
-A link to your Public GitHub repo.
-A link to your deployed production website (Netlify/ Vercel/ GitHub Pages).
-Names of both of the students that worked together.
