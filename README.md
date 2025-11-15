@@ -96,7 +96,7 @@ The auth token is stored in `localStorage` after login and sent automatically in
 ## Deployment
 
 Live site URL:  
-Coming...
+`https://place2be.netlify.app/`
 
 ## Author
 
